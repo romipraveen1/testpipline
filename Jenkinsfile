@@ -24,7 +24,8 @@ pipeline {
                 s3Delete(bucket: 'th-test-deploy', path:'**/*')
                 s3Upload(bucket: 'th-test-deploy', workingDir:'build', includePathPattern:'**/*');
                 }
-          }
+            }
+        }
     }
 
 }
