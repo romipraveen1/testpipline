@@ -6,16 +6,25 @@ pipeline {
         }
     }
     stages {
+         stage('Test') {
+            steps {
+                sh 'npm test'
+            }
+        }
         stage('Build') { 
             steps {
                 sh 'npm install --legacy-peer-deps' 
             }
         }
-        stage('Test') {
+       
+
+        stage('Production') {
             steps {
-                sh 'npm test'
-            }
-        }
+                withAWS(region:'Global',credentials:'CREDENTIALS_FROM_JENKINS_SETUP') {
+                s3Delete(bucket: 'th-test-deploy', path:'**/*')
+                s3Upload(bucket: 'th-test-deploy', workingDir:'build', includePathPattern:'**/*');
+                }
+          }
     }
 
 }
