@@ -30,7 +30,7 @@ pipeline {
             steps {
                 withAWS(region:'ap-southeast-1',credentials:'CREDENTIALS_FROM_JENKINS_SETUP') {
                 s3Delete(bucket: 'th-test-deploy', path:'**/*')
-                s3Upload(bucket: 'th-test-deploy', workingDir:'build', includePathPattern:'**/*');
+                s3Upload(bucket: 'th-test-deploy', workingDir:'build', includePathPattern:'**/*',acl:'PublicRead');
                 }
             }
         }
