@@ -6,15 +6,23 @@ pipeline {
         }
     }
     stages {
+    
+        stage('Install Packages') { 
+            steps {
+                sh 'npm install --legacy-peer-deps' 
+            }
+        }
+
          stage('Test') {
             steps {
                 sh 'npm test'
             }
         }
-        stage('Build') { 
-            steps {
-                sh 'npm install --legacy-peer-deps' 
-            }
+
+        stage('Create Build Artifacts') {
+          steps {
+            sh 'npm run build'
+          }
         }
        
 
